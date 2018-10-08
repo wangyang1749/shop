@@ -17,7 +17,15 @@
         postcode=#{postcode}
         WHERE id=#{id}
     </update>
-    <select id="list" resultType="map">
-        SELECT * FROM t_address WHERE user_id=#{userId}
+
+    <resultMap type="com.wangyang.model.Address" id="resultAddress" autoMapping="true">
+       	<id property="id" column="a_id"/>
+       	<!--  <association property="user" column="user_id" javaType="com.wangyang.model.User" select="com.wangyang.model.User.load"></association>-->
+       	<association property="user" javaType="com.wangyang.model.User" autoMapping="true">
+			<id property="id" column="user_id"/>
+        </association>
+    </resultMap>
+    <select id="list" resultMap="resultAddress" parameterType="map">
+        SELECT *,t1.id as 'a_id' FROM t_address t1 right JOIN t_user t2 ON (t1.user_id=t2.id) WHERE user_id=#{userId}
     </select>
 </mapper>

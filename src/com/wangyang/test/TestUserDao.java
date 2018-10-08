@@ -8,6 +8,7 @@ import com.wangyang.Dao.MyBatisDaoFactory;
 import com.wangyang.model.Pagers;
 import com.wangyang.model.SystemContext;
 import com.wangyang.model.User;
+import com.wangyang.util.DaoUtil;
 
 public class TestUserDao {
 	
@@ -15,7 +16,7 @@ public class TestUserDao {
 	
 	@Before
 	public void init(){
-		ud= MyBatisDaoFactory.createUserDao();
+		ud= (IUserDao)DaoUtil.createDaoFactory().createDao("userDao");
 	}
 	@Test
 	public void add(){

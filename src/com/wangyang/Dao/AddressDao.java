@@ -7,11 +7,12 @@ import java.util.Map;
 import com.wangyang.model.Address;
 import com.wangyang.model.ShopException;
 import com.wangyang.model.User;
+import com.wangyang.util.DaoUtil;
 
 public class AddressDao extends BaesDao<Address> implements IAdderssDao {
 	private IUserDao ud;
 	public AddressDao() {
-		ud = MyBatisDaoFactory.createUserDao();
+		ud = (IUserDao)DaoUtil.createDaoFactory().createDao("userDao");
 	}
 	
 	@Override

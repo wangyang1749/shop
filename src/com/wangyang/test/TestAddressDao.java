@@ -6,15 +6,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.wangyang.Dao.IAdderssDao;
+import com.wangyang.Dao.IDaoFactory;
+import com.wangyang.Dao.IUserDao;
 import com.wangyang.Dao.MyBatisDaoFactory;
 import com.wangyang.model.Address;
+import com.wangyang.util.DaoUtil;
 
 public class TestAddressDao {
 	IAdderssDao ad ;
 	
 	@Before
 	public void init(){
-		ad=MyBatisDaoFactory.createAddressDao();
+		ad=(IAdderssDao)DaoUtil.createDaoFactory().createDao("addressDao");
 	}
 	@Test
 	public void add(){
@@ -40,8 +43,15 @@ public class TestAddressDao {
 	@Test
 	public void list(){
 		List<Address> list = ad.list(1);
+		System.out.println(list.size());
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
 		}
+	}
+	@Test
+	public void dao(){
+		IAdderssDao ad1=(IAdderssDao)DaoUtil.createDaoFactory().createDao("addressDao");
+		IAdderssDao ad2=(IAdderssDao)DaoUtil.createDaoFactory().createDao("addressDao");
+		System.out.println(ad1==ad2);
 	}
 }
